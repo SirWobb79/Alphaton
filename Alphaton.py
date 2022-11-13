@@ -119,7 +119,7 @@ while use:
 		elif char == "c":
 			cell_count = int(input("\nEnter a new cell count >"))
 			
-			ints = [value] * cell_count
+			ints = [value] * cell_count + [value] * 2
 			
 		elif char == "d":
 			delay = float(input("Enter a delay for processing >"))
@@ -214,7 +214,7 @@ while use:
 						elif char2 == "c":
 							cell_count = int(input("\nEnter a new cell count >"))
 			
-							ints = [value] * cell_count
+							ints = [value] * cell_count + [value] * 2
 							
 						elif char2 == "d":
 							delay = float(input("Enter a delay for processing >"))
@@ -233,3 +233,4 @@ while use:
 						sleep(delay)
 				
 		print(f"\nCurrent Command: {char}\n[{ints[id-2]},{ints[id-1]},{ints[id]},{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},{id+1},{id+2},{id+3}\nPointer: {id+1}\nSaved: {saved}\nCells: {cell_count}")
+		sleep(delay)
