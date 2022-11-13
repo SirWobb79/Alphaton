@@ -4,9 +4,10 @@ from random import randint
 from time import sleep
 import math
 
-print("Welcome to Alphaton, the programming language that only uses letters for main commands. It is case-sensitive. Type '?' for a list of commands.\n\nLatest Version: 0.7 on 12 Nov 2022")
+# Bootup
+print("Welcome to Alphaton, the programming language that only uses letters for main commands. It is case-sensitive. Type '?' for a list of commands.\n\nLatest Version: 0.8 on 13 Nov 2022")
 
-chars = ascii_lowercase + ascii_uppercase + " .!?+-×÷\n\t"
+chars = ascii_lowercase + ascii_uppercase + " .!?+-×÷\n\t(){}[]<>/\$€£"
 
 value = 0
 
@@ -16,27 +17,31 @@ saved = 0
 carry = 0
 temp = 0
 
-saved_string = "None"
-
 ints = [value] * cell_count + [value] * 2
 id = 0
 
+saved_string = []
+
 delay = 0.1
 
+# Main interpreter
 use = True
 while use:
 	
-	print(f"\n\nData Integer Tape:\n[{ints[id-2]},{ints[id-1]},{ints[id]},{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},{id+1},{id+2},{id+3}\n\nCurrent Data Integer (Left -> Right): {id+1}\nCell Count: {cell_count}\nSaved Value: {saved}")
+	print(f"\n\nData Integer Tape:\n[{ints[id-2]},{ints[id-1]},>{ints[id]}<,{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},>{id+1}<,{id+2},{id+3}\n\nCell Count: {cell_count}\nSaved Value: {saved}\nSaved String:")
+	for x in saved_string:
+		print(x, end="")
 	
-	command = input("\nMain Command Line >")
+	command = input("\n\nMain Command Line >")
 	
+	# Command parsing
 	for char in command:
 		
 		if char == "?":
-			print("\nA: Adds 1 to current integer.\nS: Subtracts 1 from current integer\nM: Multiplies current integer by saved value.\nD: Floor divides the current integer by the saved value.\nm: Advanced math functions.\nr: 2 integers needed. Random number will be selected from range.\nL: Move to the next integer to the left.\nR: Move to the next integer to the right.\nP: Prints corrosponding letter of alphabet. Type '*' for the list.\np: Prints current integer value.\nI: Asks for a number. Number will replace current integer value.\ni: Asks for a number. Number will be the selected value on tape.\nE: Resets current integer to 0.\ns: Saves current number to memory\nl: Loads saved number to current position, replacing the previous.\ne: Clear saved value.\nZ: Transfers current value to the left.\nX: Transfers current value to the right.\nc: Asks for an integer. Integer will be no. of cells for memory.\nd: Asks for a float. Float will be time between instructions.\nO: Opens loop if value of integer IS NOT 0.\nC: Closes loop if value of integer IS 0. (Loops are NOT stackable)")
+			print("\nA: Adds 1 to current integer.\nS: Subtracts 1 from current integer\nM: Multiplies current integer by saved value.\nD: Floor divides the current integer by the saved value.\nm: Advanced math functions.\nr: 2 integers needed. Random number will be selected from range.\nL: Move to the next integer to the left.\nR: Move to the next integer to the right.\nP: Prints and adds corrosponding letter/symbol. '*' for list.\np: Prints current integer value.\nI: Asks for a number. Number will replace current integer value.\ni: Asks for a number. Number will be the selected value on tape.\nE: Resets current integer to 0.\ns: Saves current number to memory\nl: Loads saved number to current position, replacing the previous.\ne: Clear saved string.\nZ: Transfers current value to the left.\nX: Transfers current value to the right.\nc: Asks for an integer. Integer will be no. of cells for memory.\nd: Asks for a float. Float will be time between instructions.\nO: Opens loop if value of integer IS NOT 0.\nC: Closes loop if value of integer IS 0. (Loops are NOT stackable)")
 			
 		elif char == "*":
-			print("\nAlphabet list with corrosponding integer.\n\nA = 1\nB = 2\nC = 3\nD = 4\nE = 5\nF = 6\nG = 7\nH = 8\nI = 9\nJ = 10\nK = 11\nL = 12\nM = 13\nN = 14\nO = 15\nP = 16\nQ = 17\nR = 18\nS = 19\nT = 20\nU = 21\nV = 22\nW = 23\nX = 24\nY = 25\nZ = 26\nCapital letters are 27 -> 52\nSPACE = 53\n. = 54\n! = 55\n? = 56\n+ = 57\n- = 58\n× = 59\n÷ = 60\nNEW LINE = 61\nTAB = 62")
+			print("\nAlphabet list with corrosponding integer.\n\nA = 1\nB = 2\nC = 3\nD = 4\nE = 5\nF = 6\nG = 7\nH = 8\nI = 9\nJ = 10\nK = 11\nL = 12\nM = 13\nN = 14\nO = 15\nP = 16\nQ = 17\nR = 18\nS = 19\nT = 20\nU = 21\nV = 22\nW = 23\nX = 24\nY = 25\nZ = 26\nCapital letters are 27 -> 52\nSPACE = 53\n. = 54\n! = 55\n? = 56\n+ = 57\n- = 58\n× = 59\n÷ = 60\nNEW LINE = 61\nTAB = 62\n( = 63\n) = 64\n[ = 65\n] = 66\n{ = 67\n} = 68\n< = 69\n> = 70\n/ = 71\n\ = 72\n$ = 73\n€ = 74\n£ = 75\n")
 			
 		elif char == "A":
 			ints[id] += 1
@@ -77,7 +82,9 @@ while use:
 				
 		elif char == "P":
 			if 1 <= ints[id] <= len(chars):
-				print(chars[ints[id]-1], end="")
+				print("")
+				print(f"Appended character: {chars[ints[id]-1]}")
+				saved_string.append(chars[ints[id]-1])
 				
 		elif char == "p":
 			print(ints[id], end="")
@@ -100,7 +107,7 @@ while use:
 			ints[id] = saved
 			
 		elif char == "e":
-			saved = 0
+			saved_string = []
 			
 		elif char == "Z":
 			carry = ints[id]
@@ -131,6 +138,7 @@ while use:
 				done = False
 				while not done:
 					
+					# Loop parsing
 					for char2 in loop:
 						
 						if char2 == "A":
@@ -172,7 +180,9 @@ while use:
 				
 						elif char2 == "P":
 							if 1 <= ints[id] <= len(chars):
-								print(chars[ints[id]-1], end="")
+								print("")
+								print(f"Appended character: {chars[ints[id]-1]}")
+								saved_string.append(chars[ints[id]-1])
 				
 						elif char2 == "p":
 							print(ints[id], end="")
@@ -195,7 +205,7 @@ while use:
 							ints[id] = saved
 							
 						elif char2 == "e":
-							saved = 0
+							saved_string = []
 			
 						elif char2 == "Z":
 							carry = ints[id]
@@ -229,8 +239,14 @@ while use:
 							else:
 								continue
 								
-						print(f"\nCurrent Loop Command: {char2}\n[{ints[id-2]},{ints[id-1]},{ints[id]},{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},{id+1},{id+2},{id+3}\nPointer: {id+1}\nSaved: {saved}\nCells: {cell_count}")
+						print(f"\n---------------\nCurrent Loop Command: {char2}\n[{ints[id-2]},{ints[id-1]},>{ints[id]}<,{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},>{id+1}<,{id+2},{id+3}\nSaved: {saved}\nCells: {cell_count}\nSaved String:")
+						for x in saved_string:
+							print(x, end="")
+						print("")
 						sleep(delay)
 				
-		print(f"\nCurrent Command: {char}\n[{ints[id-2]},{ints[id-1]},{ints[id]},{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},{id+1},{id+2},{id+3}\nPointer: {id+1}\nSaved: {saved}\nCells: {cell_count}")
+		print(f"\n---------------\nCurrent Command: {char}\n[{ints[id-2]},{ints[id-1]},>{ints[id]}<,{ints[id+1]},{ints[id+2]}]\nCell No.: {id-1},{id},>{id+1}<,{id+2},{id+3}\nSaved: {saved}\nCells: {cell_count}\nSaved String:")
+		for x in saved_string:
+			print(x, end="")
+		print("")
 		sleep(delay)
