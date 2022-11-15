@@ -5,7 +5,7 @@ from time import sleep
 import math
 
 # Bootup
-print("Welcome to Alphaton, the programming language that only uses letters for main commands. It is case-sensitive. Type '?' for a list of commands.\n\nLatest Version: 0.8 on 13 Nov 2022")
+print("Welcome to Alphaton, the programming language that only uses letters for main commands. It is case-sensitive. Type '?' for a list of commands.\n\nLatest Version: 0.8.1 on 15 Nov 2022")
 
 chars = ascii_lowercase + ascii_uppercase + " .!?+-×÷\n\t(){}[]<>/\$€£"
 
@@ -38,7 +38,7 @@ while use:
 	for char in command:
 		
 		if char == "?":
-			print("\nA: Adds 1 to current integer.\nS: Subtracts 1 from current integer\nM: Multiplies current integer by saved value.\nD: Floor divides the current integer by the saved value.\nm: Advanced math functions.\nr: 2 integers needed. Random number will be selected from range.\nL: Move to the next integer to the left.\nR: Move to the next integer to the right.\nP: Prints and adds corrosponding letter/symbol. '*' for list.\np: Prints current integer value.\nI: Asks for a number. Number will replace current integer value.\ni: Asks for a number. Number will be the selected value on tape.\nE: Resets current integer to 0.\ns: Saves current number to memory\nl: Loads saved number to current position, replacing the previous.\ne: Clear saved string.\nZ: Transfers current value to the left.\nX: Transfers current value to the right.\nc: Asks for an integer. Integer will be no. of cells for memory.\nd: Asks for a float. Float will be time between instructions.\nO: Opens loop if value of integer IS NOT 0.\nC: Closes loop if value of integer IS 0. (Loops are NOT stackable)")
+			print("\nA: Adds 1 to current integer.\nS: Subtracts 1 from current integer\nM: Multiplies current integer by saved value.\nD: Floor divides the current integer by the saved value.\nm: Advanced math functions.\nr: 2 integers needed. Random number will be selected from range.\nL: Move to the next integer to the left.\nR: Move to the next integer to the right.\nP: Prints and adds corrosponding letter/symbol. '*' for list.\np: Prints and appends current integer value.\nI: Asks for a number. Number will replace current integer value.\ni: Asks for a number. Number will be the selected value on tape.\nE: Resets current integer to 0.\ns: Saves current number to memory\nl: Loads saved number to current position, replacing the previous.\ne: Clear saved string.\nZ: Transfers current value to the left.\nX: Transfers current value to the right.\nc: Asks for an integer. Integer will be no. of cells for memory.\nd: Asks for a float. Float will be time between instructions.\nO: Opens loop if value of integer IS NOT 0.\nC: Closes loop if value of integer IS 0. (Loops are NOT stackable)")
 			
 		elif char == "*":
 			print("\nAlphabet list with corrosponding integer.\n\nA = 1\nB = 2\nC = 3\nD = 4\nE = 5\nF = 6\nG = 7\nH = 8\nI = 9\nJ = 10\nK = 11\nL = 12\nM = 13\nN = 14\nO = 15\nP = 16\nQ = 17\nR = 18\nS = 19\nT = 20\nU = 21\nV = 22\nW = 23\nX = 24\nY = 25\nZ = 26\nCapital letters are 27 -> 52\nSPACE = 53\n. = 54\n! = 55\n? = 56\n+ = 57\n- = 58\n× = 59\n÷ = 60\nNEW LINE = 61\nTAB = 62\n( = 63\n) = 64\n[ = 65\n] = 66\n{ = 67\n} = 68\n< = 69\n> = 70\n/ = 71\n\ = 72\n$ = 73\n€ = 74\n£ = 75\n")
@@ -87,7 +87,9 @@ while use:
 				saved_string.append(chars[ints[id]-1])
 				
 		elif char == "p":
-			print(ints[id], end="")
+			print("")
+			print(f"Appended Number: {ints[id]}")
+			saved_string.append(ints[id])
 			
 		elif char == "I":
 			ask = int(input("\nEnter an integer >"))
@@ -185,7 +187,9 @@ while use:
 								saved_string.append(chars[ints[id]-1])
 				
 						elif char2 == "p":
-							print(ints[id], end="")
+							print("")
+							print(f"Appended Number: {ints[id]}")
+							saved_string.append(ints[id])
 			
 						elif char2 == "I":
 							ask = int(input("\nEnter an integer >"))
